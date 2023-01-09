@@ -2,27 +2,20 @@ package main
 
 import "fmt"
 
-func binarySearch(needle int, haystack []int) bool {
+func binarySearch(arr []int, target int) int {
 	low := 0
-	high := len(haystack) - 1
+	high := len(arr) - 1
 
 	for low <= high {
-		median := (low + high) / 2
-
-		if haystack[median] < needle {
-			low = median + 1
+		mid := low + (high-low)/2
+		if arr[mid] == target {
+			return mid
+		} else if arr[mid] < target {
+			low = mid + 1
 		} else {
-			high = median - 1
+			high = mid - 1
 		}
 	}
 
-	if low == len(haystack) || haystack[low] != needle {
-		return false
-	}
-	return true
-}
-
-func main() {
-	items := []int{1, 2, 9, 20, 31, 45, 63, 70, 100}
-	fmt.Println(binarySearch(63, items))
+	return -1
 }
